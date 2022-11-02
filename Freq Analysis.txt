@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+ // frequency analyizing
+ string characters =
+"UZQSOVUOHXMOPVGPOZPEVSGZWSZOPFPESXUDBMETSXAIZVUEPHZHMDZSHZOWSFPAPPDTSVPQUZWYMXUZUHSXE
+PYEPOPDZSZUFPOMBZWPFUPZHMDJUDTMOHMQ";
+ string key = "etiasocrnldhvmwpyfbgufaisl";
+
+ cout << "Plain Text : " << characters << " \nKey : " << key << endl;
+
+ int frequency[26]={0};
+ for (char c : characters) {
+ frequency[c-'A']++;
+ }
+ cout << "frequency percentage of all characters are.....\n";
+ for (int i=0; i<26; i++){
+ cout << (char)('A'+ i) << " : " << (frequency[i])*100.0/characters.size() << "% (occurence:" << frequency[i] << "/" <<
+characters.size() << ")" << endl;
+ }
+
+ // sorting with their occurences
+ vector<pair<int, int>> freqWithChar;
+
+ for (int i = 0; i < 26; i++) {
+ freqWithChar.push_back({frequency[i], i});
+ }
+
+ sort(freqWithChar.begin(), freqWithChar.end(), greater<pair<int, int>>());
+
+ cout << "\nsorting the characters according to their frequency occurences.....\n";
+
+ for (int i = 0; i < 26; i++) {
+ cout << (char)('A'+ freqWithChar[i].second) << " : " << (freqWithChar[i].first)*100.0/characters.size() << "%
+(occurence:" << freqWithChar[i].first << "/" << characters.size() << ")" << endl;
+ }
+
+ // matching the characters with the key
+ cout << "\nmatching the characters with the key.....\n";
+ unordered_map<char, char> matchedMap;
+ for (int i = 0; i < 26; i++) {
+ matchedMap[(char)('A'+ freqWithChar[i].second)]=key[i];
+ cout << (char)('A'+ freqWithChar[i].second) << " => " << key[i] << endl;
+ }
+
+ string decryptedText = "";
+
+ for (int i = 0; i < characters.size(); i++) {
+ decryptedText+=matchedMap[characters[i]];
+ }
+
+ cout << "\nDecrypted Text : " << decryptedText << endl;
+ return 0;
+}
