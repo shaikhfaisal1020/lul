@@ -1,7 +1,0 @@
-ipconfig
-ipconfig /all
-ping
-tracert
-nslookup
-whois (download whois package)
-dig (download bind package)
